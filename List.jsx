@@ -1,10 +1,17 @@
 
 import React from 'react'
+import './List.css';
 
-const List = ({todos, loading}) => {
+const List = ({todos, loading, changeTodoStatus}) => {
+
+    const updateStatus = (index) => {
+        changeTodoStatus(index);
+    }
 
     let todoList = <div>loading...</div>
-    if(!loading) todoList = todos.map( (todo, index) => <li key={index}>{todo.title}</li>)
+    if(!loading) todoList = todos.map( (todo, index) => 
+        <li key={index} ><span className={todo.status} onClick={ () => updateStatus(index)}>{todo.title}</span></li>
+    )
 
     return (
         <ul>

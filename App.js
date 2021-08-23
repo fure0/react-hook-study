@@ -15,11 +15,18 @@ const App = () => {
   const addTodo = () => {
     const newTitle = document.getElementById("input_val").value;
     const data = {"title": newTitle, "status": "todo"};
-    // setNewTodo(data);
-    // console.log(todos);
-    // console.log(data);
-
     setTodos([...todos, data]);  
+  }
+
+  const changeTodoStatus = (id) => {
+    const updateTods = todos.map( (todo, index) => {
+      if (id === index) {
+        if (todo.status === "done") todo.status = "todo";
+        else todo.status = "done";
+      }
+      return todo;
+    })
+    setTodos(updateTods);
   }
 
   useEffect( () => {
@@ -31,8 +38,7 @@ const App = () => {
     setTimeout(function(){ 
       setLoading(false);
       fetchInitialData();
-    }, 3000);
-    
+    }, 1000);
   }, [])
 
   return (
@@ -44,7 +50,7 @@ const App = () => {
       <button onClick={addTodo}>add todo</button>
     </div>
 
-    <List todos={todos} loading={loading}/>
+    <List todos={todos} loading={loading} changeTodoStatus={changeTodoStatus}/>
     </>
   )
 }
