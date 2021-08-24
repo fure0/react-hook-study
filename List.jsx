@@ -1,8 +1,11 @@
 
-import React from 'react'
+import React, {useContext} from 'react'
 import './List.css';
+import { TodoContext } from './App.js'
 
-const List = ({todos, loading, changeTodoStatus}) => {
+const List = () => {
+
+    const {todos, loading, changeTodoStatus} = useContext(TodoContext);
 
     const updateStatus = (index) => {
         changeTodoStatus(index);

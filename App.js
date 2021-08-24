@@ -3,6 +3,8 @@ import './App.css';
 import List from './List.jsx';
 import sampleData from './sample_data';
 
+export const TodoContext = React.createContext();
+
 const App = () => {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -42,16 +44,18 @@ const App = () => {
   }, [])
 
   return (
-    <>
-    <h1>Todo App</h1>
+    <TodoContext.Provider value={
+      {todos, loading, changeTodoStatus}
+    }>
+      <h1>Todo App</h1>
 
-    <div action="">
-      <input type="text" id="input_val" name=""/>
-      <button onClick={addTodo}>add todo</button>
-    </div>
+      <div action="">
+        <input type="text" id="input_val" name=""/>
+        <button onClick={addTodo}>add todo</button>
+      </div>
 
-    <List todos={todos} loading={loading} changeTodoStatus={changeTodoStatus}/>
-    </>
+      <List />
+    </TodoContext.Provider>
   )
 }
 
